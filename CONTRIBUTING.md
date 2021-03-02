@@ -1,12 +1,12 @@
-# MyAirplaneFork
+# Balloon Contributing Guide
 
-A template project for forking Airplane!
+Follow these steps to contribute to Balloon!
 
 ## Initial Setup
 
 Fork this repository to your own repo, then clone it locally. Once you've cloned it, you can setup the patches:
 ```bash
-cd MyAirplaneFork
+cd Balloon
 ./gradlew applyPatches
 # or on windows
 gradlew.bat applyPatches
@@ -14,13 +14,13 @@ gradlew.bat applyPatches
 
 This will set up the entire project, as once it's done everything will be ready to go!
 
-## Working on the fork
+## Working on the project
 
-Once it applies the patches, you'll have two directories: `MyAirplaneFork-API`, and `MyAirplaneFork-Server`.
-Inside the `MyAirplaneFork-API` you should be somewhat familiar seeing the Bukkit library.
+Once it applies the patches, you'll have two directories: `Balloon-API`, and `Balloon-Server`.
+Inside the `Balloon-API` you should be somewhat familiar seeing the Bukkit library.
 Any interfaces to the server you want to expose to plugins, should go in this project.
 
-Inside of `MyAirplaneFork-Server`, you'll find the actual implementation of the API.
+Inside of `Balloon-Server`, you'll find the actual implementation of the API.
 Here is where you can make logic changes to the server, with the power to change anything in the implementation that you want!
 
 ## What is a patch file?
@@ -30,8 +30,8 @@ It represents a change to the server, and applies on top of previous changes, wh
 (and CraftBukkit, and Spigot, and Paper, and Tuinity, and Airplane..)
 
 Each patch represents 1 commit inside the respective project. 
-`patches/api` adds commits to `MyAirplaneFork-API`, while `patches/server` adds commits to `MyAirplaneFork-Server`.
-Both of `MyAirplaneFork-API` and `MyAirplaneFork-Server` have their own git repository inside them, however there's no remote (like GitHub) that you push these repositories to.
+`patches/api` adds commits to `Balloon-API`, while `patches/server` adds commits to `Balloon-Server`.
+Both of `Balloon-API` and `Balloon-Server` have their own git repository inside them, however there's no remote (like GitHub) that you push these repositories to.
 Instead, they get built from all the patches you have in your `patches` folder.
 
 So if you want to create a new patch, just add a commit to either the API or Server folder, and all you need to do to generate the patch is:
@@ -43,7 +43,7 @@ gradlew.bat rebuildPatches
 ```
 
 This command takes your commits, and turns them back into the actual patch files that you push.
-You should make sure that your fork never has the API and Server folders pushed, and just the `patches/api` and `patches/server` pushed.
+You should make sure that your project never has the API and Server folders pushed, and just the `patches/api` and `patches/server` pushed.
 
 ## How do I update the upstream?
 
@@ -98,11 +98,11 @@ git add --all
 gradlew.bat upstreamCommit
 ```
 
-With that, you've successfully updated your fork!
+With that, you've successfully updated Balloon!
 
-## Building the fork
+## Building the project
 
-If you're just building the fork to test, you can run:
+If you're just building the project to test, you can run:
 
 ```bash
 ./gradlew build
@@ -110,7 +110,7 @@ If you're just building the fork to test, you can run:
 gradlew.bat build
 ```
 
-Which will output your final JAR at `MyAirplaneFork-Server/build/libs/myairplanefork-server-1.16.5-R0.1-SNAPSHOT.jar`.
+Which will output your final JAR at `Balloon-Server/build/libs/balloon-server-1.16.5-R0.1-SNAPSHOT.jar`.
 However, you should not distribute this JAR outside testing because it contains Mojang's copyrighted Minecraft code.
 Instead, you can use the following command to generate a JAR that downloads Mojang's server when it's ran, and applies your changes on top:
 
@@ -120,12 +120,11 @@ Instead, you can use the following command to generate a JAR that downloads Moja
 gradle.bat paperclip
 ```
 
-This will output your distributable JAR at `launcher-myairplanefork.jar`, right in your main directory!
+This will output your distributable JAR at `balloon-launcher.jar`, right in your main directory!
 
 ## Questions?
 
-If you need help with any of this or run into issues, feel free to ask questions in the Airplane Discord located here: https://discord.gg/3gtc45q
-
+If you need help with any of this or run into issues, feel free to direct any questions to MoonBarc#0001 (285810061672972290) on Discord!
 
 ## Additional Info
 
@@ -136,18 +135,9 @@ Our build system is [Toothpick](https://github.com/jpenilla/Toothpick), put toge
 Unlike other forks, this system uses Gradle instead of Maven. 
 Inside the Server folder however, you will still find a `pom.xml` that IntelliJ may try to import. If it does, make sure to unlink the Maven project and doublecheck that the Gradle project is imported
 
-### Changing Branding
-
-This won't be a comprehensive guide, but if you need to change branding you should go to these places:
-
-- build.gradle.kts (forkName, groupId, forkUrl, paperclipName)
-- settings.gradle.kts (forkName)
-- MyAirplaneFork-Server/pom.xml (API dependency)
-- PaperVersionFinder.java (change GitHub repo)
-- MinecraftServer.java (getServerModName)
-- CraftServer.java (serverName)
-- Versioning.java (path to pom.properties should match API)
-
 ### Licensing
 
 This repository is licensed under MIT, however I'm fairly convinced due to the GPL licensing of upstreams that forks need to be licensed GPL as well.
+
+
+Many of this was taken from the MyAirplaneFork initial setup guide. I only rebranded and fixed up this guide.
